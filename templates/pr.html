@@ -3,40 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>House Price Prediction</title>
+    <title>PR House Price Prediction</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(to right, #1e3c72, #2a5298);
-            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Inter', sans-serif;
+            padding: 20px;
         }
         .container {
-            max-width: 450px;
+            max-width: 500px;
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         h1 {
-            color: #1e3c72;
-            font-size: 24px;
-            font-weight: bold;
+            color: #2d3748;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .form-label {
+            color: #4a5568;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .form-control {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
         }
         .btn-primary {
             width: 100%;
-            transition: 0.3s;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 10px;
+            background: #4299e1;
+            border: none;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
         }
         .btn-primary:hover {
-            background: #2a5298;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+            background: #3182ce;
         }
         .loading {
             display: none;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 1.5rem;
+        }
+        .alert {
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        .alert-success {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+        .alert-danger {
+            background: #fed7d7;
+            color: #c53030;
         }
     </style>
     <script>
@@ -47,33 +91,25 @@
 </head>
 <body>
     <div class="container">
-        <h1>🏡 House Price Prediction</h1>
+        <h1>🏡 House Price Prediction (PR)</h1>
         <form action="/pr" method="post" onsubmit="showLoading()">
-            <div class="mb-3">
+            <div class="mb-4">
                 <label class="form-label">🏠 Square Footage:</label>
                 <input type="number" name="square_footage" class="form-control" required>
             </div>
-            <div class="mb-3">
-                <label class="form-label">🛏 Bedrooms:</label>
-                <input type="number" name="bedrooms" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">🛁 Bathrooms:</label>
-                <input type="number" name="bathrooms" class="form-control" required>
-            </div>
             <button type="submit" class="btn btn-primary">🔍 Predict</button>
-            <div id="loading" class="loading text-primary">
-                <div class="spinner-border" role="status"></div>
-                <p>Predicting...</p>
+            <div id="loading" class="loading">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2">Predicting...</p>
             </div>
         </form>
         {% if predicted_price %}
-        <div class="alert alert-success mt-4">
-            <h4>💰 Estimated Price: ₹{{ predicted_price }}</h4>
+        <div class="alert alert-success">
+            <h4 class="mb-0">💰 Estimated Price: ₹{{ predicted_price }}</h4>
         </div>
         {% endif %}
         {% if error %}
-        <div class="alert alert-danger mt-4">
+        <div class="alert alert-danger">
             <strong>Error:</strong> {{ error }}
         </div>
         {% endif %}
